@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!--Device Compatibility -->
+    <title>Spice Heritage - Homemade Pickles</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+
+    <!-- -----------------------------------------------------------Navigation Bar------------------------------------------------------------------ -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <!-- Left: Logo Area -->
+            <div class="nav-logo">
+                <h2> Spice Heritage</h2>
+            </div>
+            <!-- Left: Logo Area -->
+
+            <!--Menu Links -->
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="catalog.html" class="nav-link">Catalog</a></li>
+                <li><a href="#testimonials" class="nav-link">Testimonials</a></li>
+                <li><a href="suggest.html" class="nav-link">Suggest</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <!-- Menu Links -->
+             
+            <div class="nav-icons">
+                <div class="profile-icon" id="profileIcon">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="cart-icon" id="cartIcon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-badge" id="cartBadge">₹0</span>
+                </div>
+            </div>
+            <div class="navButton" id="navButton">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+
+    <!--------------------------------------------------------------- Hero Banner ------------------------------------------------------------------------------------------>
+    <section class="hero-banner" id="home">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>You taste the tradition in every spoon of pickle</h1>
+                <p>Authentic homemade pickles crafted with love and traditional recipes</p>
+                <button class="cta-button" onclick="window.location.href='catalog.html'">Shop Now</button>
+            </div>
+            <div class="hero-jars">
+                <div class="jar jar-left">🫙</div>
+                <div class="jar jar-right">🫙</div>
+            </div>
+        </div>
+        <div class="spice-particles">
+            <div class="particle"> 🌶️🌶️</div>
+            <div class="particle">🥭🥭</div>
+            <div class="particle">🌶️🌶️</div>
+        </div>
+    </section>
+    
+
+    <!-------------------------------------------------------------- Categories Section --------------------------------------------------------------------------------------->
+    <section class="categories-section">
+        <div class="container">
+            <h2 class="section-title">Our Categories</h2>
+            <div class="categories-grid">
+                <div class="category-card veg-category">
+                    <h3>Vegetarian Pickles</h3>
+                    <p>Fresh vegetables pickled to perfection</p>
+                    <div class="category-image">
+                        <img src="images/Veg-Category.jpg" alt="Vegetarian Pickels" />
+                    </div>
+                    <a href="catalog.html" class="category-btn">Explore Veg</a>
+
+                </div>
+                <div class="category-card non-veg-category">
+                    <h3>Non-Vegetarian Pickles</h3>
+                    <p>Premium seafood and meat pickles</p>
+                    <div class="category-image">
+                        <img src="images/Non-Veg-Category.jpeg" alt="Vegetarian Pickels" />
+                    </div>
+                    <a href="catalog.html" class="category-btn">Explore Veg</a>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!------------------------------------------------------------------ Featured Products ----------------------------------------------------------------------------------->
+    <section class="featured-products">
+        <div class="container">
+            <h2 class="section-title">Featured Pickles</h2>
+            <div class="products-grid" id="featuredProducts">
+                
+
+                <!-- Products will be loaded dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section class="why-choose-us">
+        <div class="container">
+            <h2 class="section-title">Why Choose Us?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🏠</div>
+                    <h3>Homemade Authentic</h3>
+                    <p>Traditional recipes passed down through generations</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🧼</div>
+                    <h3>Hygienic Process</h3>
+                    <p>Prepared in clean, sanitized environment</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌶️</div>
+                    <h3>Premium Spices</h3>
+                    <p>Only the finest spices and ingredients used</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🚚</div>
+                    <h3>Fresh Delivery</h3>
+                    <p>Quick delivery to maintain freshness</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <h2 class="section-title">What Our Customers Say</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p>"The mango pickle reminds me of my grandmother's recipe. Absolutely authentic!"</p>
+                    <div class="customer-info">
+                        <strong>Priya Sharma</strong>
+                        <span>Mumbai</span>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p>"Best prawn pickle I've ever tasted. Perfect spice level and freshness."</p>
+                    <div class="customer-info">
+                        <strong>Rajesh Kumar</strong>
+                        <span>Bangalore</span>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p>"Living abroad, this brings back the taste of home. Highly recommended!"</p>
+                    <div class="customer-info">
+                        <strong>Anita Patel</strong>
+                        <span>USA</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us -->
+    <section class="about-us" id="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2 class="section-title">About Spice Heritage</h2>
+                    <p>Founded with a passion for preserving traditional flavors, Spice Heritage brings you authentic homemade pickles crafted with love and care. Our recipes have been passed down through generations, ensuring every jar carries the essence of traditional Indian cuisine.</p>
+                    <p>We use only the finest ingredients and maintain the highest standards of hygiene in our preparation process. From sourcing fresh vegetables to the final packaging, every step is carefully monitored to deliver the best quality pickles to your doorstep.</p>
+                    <div class="about-stats">
+                        <div class="stat">
+                            <h3>1000+</h3>
+                            <p>Happy Customers</p>
+                        </div>
+                        <div class="stat">
+                            <h3>50+</h3>
+                            <p>Pickle Varieties</p>
+                        </div>
+                        <div class="stat">
+                            <h3>5+</h3>
+                            <p>Years Experience</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image">
+                    <div class="image-placeholder">
+                        <i class="fas fa-pepper-hot"></i>
+                        <p>Traditional Pickle Making</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>Address</h4>
+                            <p>KPHB phase-1, Road no-3<br>Hyderabad, Telangana 500072</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h4>Phone</h4>
+                            <p>+91 9392455293</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>Email</h4>
+                            <p>brahmareddypalam@spiceheritage.com</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <input type="text" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" placeholder="Your Email" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea placeholder="Your Message" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Subscribe to Offers -->
+    <section class="subscribe-section">
+        <div class="container">
+            <div class="subscribe-content">
+                <h2>Subscribe for Special Offers</h2>
+                <p>Get notified about new products and exclusive discounts</p>
+                <form class="subscribe-form" id="subscribeForm">
+                    <input type="email" placeholder="Enter your email" required>
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>🥒 Spice Heritage</h3>
+                    <p>Preserving traditions, one pickle at a time.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="catalog.html">Catalog</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Categories</h4>
+                    <ul>
+                        <li><a href="#">Vegetarian Pickles</a></li>
+                        <li><a href="#">Non-Veg Pickles</a></li>
+                        <li><a href="#">Seasonal Specials</a></li>
+                        <li><a href="#">Gift Hampers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Customer Care</h4>
+                    <ul>
+                        <li><a href="#">Shipping Info</a></li>
+                        <li><a href="#">Return Policy</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Support</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Spice Heritage. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cart Panel -->
+    <div class="cart-panel" id="cartPanel">
+        <div class="cart-header">
+            <h3>🛒 My Cart (<span id="cartItemCount">0</span> Items)</h3>
+            <span class="cart-total" id="cartTotal">₹0.00</span>
+            <button class="close-cart" id="closeCart">&times;</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <div class="empty-cart">
+                <p>Your cart is empty!</p>
+            </div>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-subtotal">
+                <strong>Subtotal: <span id="cartSubtotal">₹0.00</span></strong>
+            </div>
+            <div class="cart-buttons">
+                <button class="checkout-btn" id="checkoutBtn">Checkout</button>
+                <button class="keep-shopping-btn" id="keepShoppingBtn">Keep Shopping</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Auth Modal -->
+    <div class="auth-modal" id="authModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="auth-tabs">
+                    <button class="tab-btn active" data-tab="login">Login</button>
+                    <button class="tab-btn" data-tab="register">Register</button>
+                </div>
+                <button class="close-modal" id="closeAuthModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <!-- Login Form -->
+                <div class="auth-form active" id="loginForm">
+                    <h3>Welcome Back!</h3>
+                    <form id="loginFormSubmit">
+                        <div class="form-group">
+                            <input type="text" placeholder="Email or Mobile" required>
+                        </div>
+                        <div class="form-group password-group">
+                            <input type="password" placeholder="Password" required>
+                            <button type="button" class="toggle-password">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <div class="form-options">
+                            <a href="#" class="forgot-password">Forgot Password?</a>
+                        </div>
+                        <button type="submit" class="auth-btn">Login</button>
+                    </form>
+                </div>
+                <!-- Register Form -->
+                <div class="auth-form" id="registerForm">
+                    <h3>Join Our Family!</h3>
+                    <form id="registerFormSubmit">
+                        <div class="form-group">
+                            <input type="text" placeholder="Full Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" placeholder="Mobile Number (10 digits)" pattern="[0-9]{10}" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" placeholder="Email" required>
+                        </div>
+                        <div class="form-group password-group">
+                            <input type="password" placeholder="Password" required>
+                            <button type="button" class="toggle-password">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <div class="form-group password-group">
+                            <input type="password" placeholder="Confirm Password" required>
+                            <button type="button" class="toggle-password">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <button type="submit" class="auth-btn">Register</button>
+                    </form>
+                </div>
+                <!-- Forgot Password Form -->
+                <div class="auth-form" id="forgotPasswordForm">
+                    <h3>Reset Password</h3>
+                    <form id="forgotPasswordSubmit">
+                        <div class="form-group">
+                            <input type="text" placeholder="Email or Mobile" required>
+                        </div>
+                        <button type="submit" class="auth-btn">Send OTP</button>
+                        <button type="button" class="back-to-login">Back to Login</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile Dropdown -->
+    <div class="profile-dropdown" id="profileDropdown">
+        <div class="dropdown-item">
+            <i class="fas fa-user"></i>
+            <span>My Profile</span>
+        </div>
+        <div class="dropdown-item">
+            <i class="fas fa-box"></i>
+            <span>My Orders</span>
+        </div>
+        <div class="dropdown-item">
+            <i class="fas fa-heart"></i>
+            <span>Wishlist</span>
+        </div>
+        <div class="dropdown-item logout-btn">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Logout</span>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
