@@ -100,6 +100,8 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   if (document.getElementById("catalogProducts")) {
     loadCatalogProducts()
+    // Added function call to apply filter from URL on catalog page load
+    applyFilterFromURL()
   }
 
   // Setup scroll animations
@@ -217,7 +219,9 @@ function setupEventListeners() {
 
   // Close dropdowns when clicking outside
   document.addEventListener("click", () => {
-    profileDropdown.classList.remove("active")
+    if (profileDropdown) {
+        profileDropdown.classList.remove("active")
+    }
   })
 }
 
@@ -239,23 +243,25 @@ function setupAuthModalListeners() {
   }
 
   // Tab switching
-  tabBtns.forEach((btn) => {
-    btn.addEventListener("click", function () {
-      const tab = this.dataset.tab
+  if (tabBtns.length > 0) {
+    tabBtns.forEach((btn) => {
+        btn.addEventListener("click", function () {
+        const tab = this.dataset.tab
 
-      // Update active tab
-      tabBtns.forEach((b) => b.classList.remove("active"))
-      this.classList.add("active")
+        // Update active tab
+        tabBtns.forEach((b) => b.classList.remove("active"))
+        this.classList.add("active")
 
-      // Show corresponding form
-      authForms.forEach((form) => {
-        form.classList.remove("active")
-        if (form.id === tab + "Form") {
-          form.classList.add("active")
-        }
-      })
+        // Show corresponding form
+        authForms.forEach((form) => {
+            form.classList.remove("active")
+            if (form.id === tab + "Form") {
+            form.classList.add("active")
+            }
+        })
+        })
     })
-  })
+  }
 
   // Forgot password link
   if (forgotPasswordLink) {
@@ -279,22 +285,24 @@ function setupAuthModalListeners() {
   }
 
   // Toggle password visibility
-  togglePasswordBtns.forEach((btn) => {
-    btn.addEventListener("click", function () {
-      const input = this.parentElement.querySelector("input")
-      const icon = this.querySelector("i")
+  if (togglePasswordBtns.length > 0) {
+    togglePasswordBtns.forEach((btn) => {
+        btn.addEventListener("click", function () {
+        const input = this.parentElement.querySelector("input")
+        const icon = this.querySelector("i")
 
-      if (input.type === "password") {
-        input.type = "text"
-        icon.classList.remove("fa-eye")
-        icon.classList.add("fa-eye-slash")
-      } else {
-        input.type = "password"
-        icon.classList.remove("fa-eye-slash")
-        icon.classList.add("fa-eye")
-      }
+        if (input.type === "password") {
+            input.type = "text"
+            icon.classList.remove("fa-eye")
+            icon.classList.add("fa-eye-slash")
+        } else {
+            input.type = "password"
+            icon.classList.remove("fa-eye-slash")
+            icon.classList.add("fa-eye")
+        }
+        })
     })
-  })
+  }
 
   // Logout functionality
   const logoutBtn = document.querySelector(".logout-btn")
@@ -366,16 +374,18 @@ function setupFormSubmissions() {
 function setupCatalogListeners() {
   // Filter buttons
   const filterBtns = document.querySelectorAll(".filter-btn")
-  filterBtns.forEach((btn) => {
-    btn.addEventListener("click", function () {
-      filterBtns.forEach((b) => b.classList.remove("active"))
-      this.classList.add("active")
+  if (filterBtns.length > 0) {
+    filterBtns.forEach((btn) => {
+        btn.addEventListener("click", function () {
+        filterBtns.forEach((b) => b.classList.remove("active"))
+        this.classList.add("active")
 
-      const filter = this.dataset.filter
-      filterProducts(filter)
-      
+        const filter = this.dataset.filter
+        filterProducts(filter)
+        
+        })
     })
-  })
+  }
 
   // Sort select
   const sortSelect = document.getElementById("sortSelect")
@@ -419,11 +429,14 @@ function createProductCard(product) {
   card.className = "product-card"
   card.dataset.category = product.category
   card.dataset.spiceLevel = product.spiceLevel
+  card.dataset.name = product.name; 
+  card.dataset.price = product.pricePerGram;
+  card.dataset.popular = String(product.popular);
+
 
   card.innerHTML = `
-        
         <div class="product-image">
-            <img src="${product.image}" alt="${product.name}">
+            <img src="${product.image}" alt="${product.name}" loading="lazy">
         </div>
         <div class="product-info">
             <h3 class="product-name">${product.name}</h3>
@@ -463,13 +476,14 @@ function setupWeightSelection(card, product) {
 
   weightBtns.forEach((btn) => {
     btn.addEventListener("click", function () {
-      // Remove active class from all buttons
       weightBtns.forEach((b) => b.classList.remove("active"))
       this.classList.add("active")
 
       if (this.dataset.weight === "custom") {
         customInput.classList.add("active")
         customInputField.focus()
+        addToCartBtn.disabled = true;
+        addToCartBtn.textContent = "Enter Weight";
       } else {
         customInput.classList.remove("active")
         selectedWeight = Number.parseInt(this.dataset.weight)
@@ -578,7 +592,7 @@ function updateCartItems() {
 
     cartItemElement.innerHTML = `
             <div class="cart-item-info">
-                <h4>${item.image} ${item.name} (${item.weight}g)</h4>
+                <h4>${item.name} (${item.weight}g)</h4>
                 <p>Quantity: ${item.quantity}</p>
                 <button class="remove-item" onclick="removeFromCart(${item.id}, ${item.weight})">❌ Remove</button>
             </div>
@@ -596,22 +610,17 @@ function saveCart() {
 
 // Authentication Functions
 function handleLogin(form) {
-  const formData = new FormData(form)
-  const email = formData.get("email") || form.querySelector('input[type="text"]').value
-  const password = formData.get("password") || form.querySelector('input[type="password"]').value
+  const email = form.querySelector('input[type="text"]').value
+  const password = form.querySelector('input[type="password"]').value
 
-  // Simple validation (in real app, this would be server-side)
   if (email && password) {
-    // Simulate login
     isLoggedIn = true
     currentUser = {
       email: email,
       name: email.split("@")[0] || "User",
     }
-
     localStorage.setItem("isLoggedIn", "true")
     localStorage.setItem("currentUser", JSON.stringify(currentUser))
-
     document.getElementById("authModal").classList.remove("active")
     updateAuthUI()
     showToast("Login successful!", "success")
@@ -628,33 +637,23 @@ function handleRegister(form) {
   const password = inputs[3].value
   const confirmPassword = inputs[4].value
 
-  // Validation
   if (!name || !mobile || !email || !password || !confirmPassword) {
     showToast("Please fill in all fields", "error")
     return
   }
-
   if (mobile.length !== 10 || !/^\d+$/.test(mobile)) {
     showToast("Please enter a valid 10-digit mobile number", "error")
     return
   }
-
   if (password !== confirmPassword) {
     showToast("Passwords do not match", "error")
     return
   }
 
-  // Simulate registration
   isLoggedIn = true
-  currentUser = {
-    name: name,
-    email: email,
-    mobile: mobile,
-  }
-
+  currentUser = { name, email, mobile }
   localStorage.setItem("isLoggedIn", "true")
   localStorage.setItem("currentUser", JSON.stringify(currentUser))
-
   document.getElementById("authModal").classList.remove("active")
   updateAuthUI()
   showToast("Registration successful!", "success")
@@ -662,16 +661,11 @@ function handleRegister(form) {
 
 function handleForgotPassword(form) {
   const email = form.querySelector("input").value
-
   if (!email) {
     showToast("Please enter your email or mobile", "error")
     return
   }
-
-  // Simulate sending OTP
   showToast("OTP sent successfully! (This is a demo)", "success")
-
-  // In a real app, you would show OTP input form here
   setTimeout(() => {
     showToast("Password reset link sent to your email", "success")
   }, 2000)
@@ -682,17 +676,15 @@ function logout() {
   currentUser = null
   localStorage.removeItem("isLoggedIn")
   localStorage.removeItem("currentUser")
-
   updateAuthUI()
   showToast("Logged out successfully", "success")
 }
 
 function updateAuthUI() {
   const profileIcon = document.getElementById("profileIcon")
-  const profileDropdown = document.getElementById("profileDropdown")
+  if (!profileIcon) return;
 
   if (isLoggedIn && currentUser) {
-    // Update profile icon to show user initial or avatar
     profileIcon.innerHTML = `<span style="font-weight: bold;">${currentUser.name.charAt(0).toUpperCase()}</span>`
     profileIcon.style.background = "var(--primary-orange)"
     profileIcon.style.borderRadius = "50%"
@@ -704,27 +696,19 @@ function updateAuthUI() {
   } else {
     profileIcon.innerHTML = '<i class="fas fa-user"></i>'
     profileIcon.style.background = "none"
+    profileIcon.style.width = "auto"
+    profileIcon.style.height = "auto"
   }
 }
 
 // Form Handlers
 function handleContactForm(form) {
-  const formData = new FormData(form)
-  const name = formData.get("name") || form.querySelector('input[type="text"]').value
-  const email = formData.get("email") || form.querySelector('input[type="email"]').value
-  const message = formData.get("message") || form.querySelector("textarea").value
-
-  if (name && email && message) {
-    showToast("Message sent successfully! We'll get back to you soon.", "success")
-    form.reset()
-  } else {
-    showToast("Please fill in all fields", "error")
-  }
+  form.reset()
+  showToast("Message sent successfully! We'll get back to you soon.", "success")
 }
 
 function handleSubscribe(form) {
   const email = form.querySelector('input[type="email"]').value
-
   if (email && email.includes("@")) {
     showToast("Successfully subscribed to our newsletter!", "success")
     form.reset()
@@ -734,40 +718,33 @@ function handleSubscribe(form) {
 }
 
 function handleSuggestForm(form) {
-  const formData = new FormData(form)
-  const pickleType = formData.get("pickleType") || form.querySelector("#pickleType").value
-  const pickleName = formData.get("pickleName") || form.querySelector("#pickleName").value
-  const yourName = formData.get("yourName") || form.querySelector("#yourName").value
-  const yourEmail = formData.get("yourEmail") || form.querySelector("#yourEmail").value
-  const agreeTerms = form.querySelector("#agreeTerms").checked
-
-  if (!pickleType || !pickleName || !yourName || !yourEmail || !agreeTerms) {
-    showToast("Please fill in all required fields and agree to terms", "error")
-    return
-  }
-
-  showToast("Thank you for your suggestion! We'll review it within 7 days.", "success")
   form.reset()
+  showToast("Thank you for your suggestion! We'll review it within 7 days.", "success")
 }
 
 // Filter and Sort Functions
 function filterProducts(filter) {
-  const productCards = document.querySelectorAll(".product-card")
+  const productCards = document.querySelectorAll(".product-card");
 
   productCards.forEach((card) => {
-    if (filter === "all") {
-      card.style.display = "block"
-    } else {
-      const category = card.dataset.category
-      const spiceLevel = card.dataset.spiceLevel
+    const category = card.dataset.category;
+    const spiceLevel = card.dataset.spiceLevel;
+    let shouldShow = false;
 
-      if (filter === category || filter === spiceLevel) {
-        card.style.display = "block"
-      } else {
-        card.style.display = "none"
-      }
+    if (filter === "all") {
+      shouldShow = true;
+    } else if (filter === 'veg' && category === 'veg') {
+      shouldShow = true;
+    } else if (filter === 'non-veg' && category === 'non-veg') {
+      shouldShow = true;
+    } else if (filter === 'spicy' && (spiceLevel === 'hot' || spiceLevel === 'extra-hot')) {
+      shouldShow = true;
+    } else if (filter === 'mild' && spiceLevel === 'mild') {
+      shouldShow = true;
     }
-  })
+
+    card.style.display = shouldShow ? "block" : "none";
+  });
 }
 
 function sortProducts(sortBy) {
@@ -777,24 +754,20 @@ function sortProducts(sortBy) {
   const productCards = Array.from(container.querySelectorAll(".product-card"))
 
   productCards.sort((a, b) => {
-    const aProduct = products.find((p) => p.name === a.querySelector(".product-name").textContent)
-    const bProduct = products.find((p) => p.name === b.querySelector(".product-name").textContent)
-
     switch (sortBy) {
       case "name":
-        return aProduct.name.localeCompare(bProduct.name)
+        return a.dataset.name.localeCompare(b.dataset.name)
       case "price-low":
-        return aProduct.pricePerGram - bProduct.pricePerGram
+        return parseFloat(a.dataset.price) - parseFloat(b.dataset.price)
       case "price-high":
-        return bProduct.pricePerGram - aProduct.pricePerGram
+        return parseFloat(b.dataset.price) - parseFloat(a.dataset.price)
       case "popular":
-        return bProduct.popular - aProduct.popular
+        return (b.dataset.popular === 'true') - (a.dataset.popular === 'true')
       default:
         return 0
     }
   })
 
-  // Re-append sorted cards
   productCards.forEach((card) => container.appendChild(card))
 }
 
@@ -815,18 +788,16 @@ function showToast(message, type = "info") {
     `
 
   toastContainer.appendChild(toast)
-
-  // Show toast
   setTimeout(() => toast.classList.add("show"), 100)
 
-  // Auto remove after 5 seconds
-  setTimeout(() => {
+  const closeBtn = toast.querySelector(".toast-close");
+  const timer = setTimeout(() => {
     toast.classList.remove("show")
     setTimeout(() => toast.remove(), 300)
   }, 5000)
 
-  // Manual close
-  toast.querySelector(".toast-close").addEventListener("click", () => {
+  closeBtn.addEventListener("click", () => {
+    clearTimeout(timer);
     toast.classList.remove("show")
     setTimeout(() => toast.remove(), 300)
   })
@@ -834,134 +805,64 @@ function showToast(message, type = "info") {
 
 // Scroll Animations
 function setupScrollAnimations() {
-  const observerOptions = {
-    threshold: 0.1,
-    rootMargin: "0px 0px -50px 0px",
-  }
+  const elementsToAnimate = document.querySelectorAll(".product-card, .feature-card, .testimonial-card, .category-card");
+  if (elementsToAnimate.length === 0) return;
 
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         entry.target.classList.add("animate")
+        observer.unobserve(entry.target);
       }
     })
-  }, observerOptions)
+  }, { threshold: 0.1 });
 
-  // Observe elements for animation
-  document.querySelectorAll(".product-card, .feature-card, .testimonial-card, .category-card").forEach((el) => {
+  elementsToAnimate.forEach((el) => {
     el.classList.add("scroll-animate")
     observer.observe(el)
   })
 }
 
-// Utility Functions
-function debounce(func, wait) {
-  let timeout
-  return function executedFunction(...args) {
-    const later = () => {
-      clearTimeout(timeout)
-      func(...args)
+// New function to read URL and apply filter (with debugging)
+function applyFilterFromURL() {
+    console.log("Catalog page loaded. Checking for URL filter...");
+    const urlParams = new URLSearchParams(window.location.search);
+    const filterValue = urlParams.get('filter');
+
+    if (filterValue) {
+        console.log("Filter found in URL:", filterValue);
+        
+        // Apply the product filter
+        console.log("Applying filter for:", filterValue);
+        filterProducts(filterValue);
+
+        // Update the active state of the filter buttons
+        const filterBtns = document.querySelectorAll(".filter-btn");
+        let foundButton = false;
+        filterBtns.forEach(btn => {
+            btn.classList.remove('active');
+            if (btn.dataset.filter === filterValue) {
+                btn.classList.add('active');
+                foundButton = true;
+            }
+        });
+        if(foundButton) {
+            console.log("Highlighting button for:", filterValue);
+        } else {
+            console.log("Could not find a button to highlight for:", filterValue);
+        }
+    } else {
+        console.log("No filter found in URL.");
     }
-    clearTimeout(timeout)
-    timeout = setTimeout(later, wait)
-  }
 }
-
-// Search Functionality (can be added later)
-function searchProducts(query) {
-  const filteredProducts = products.filter(
-    (product) =>
-      product.name.toLowerCase().includes(query.toLowerCase()) ||
-      product.description.toLowerCase().includes(query.toLowerCase()),
-  )
-
-  // Update display with filtered products
-  return filteredProducts
-}
-
-// Price Calculator
-function calculatePrice(pricePerGram, weight) {
-  return (pricePerGram * weight).toFixed(2)
-}
-
-// Validation Helpers
-function validateEmail(email) {
-  const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-  return re.test(email)
-}
-
-function validatePhone(phone) {
-  const re = /^\d{10}$/
-  return re.test(phone)
-}
-
-// Local Storage Helpers
-function saveToLocalStorage(key, data) {
-  try {
-    localStorage.setItem(key, JSON.stringify(data))
-  } catch (error) {
-    console.error("Error saving to localStorage:", error)
-  }
-}
-
-function getFromLocalStorage(key) {
-  try {
-    const data = localStorage.getItem(key)
-    return data ? JSON.parse(data) : null
-  } catch (error) {
-    console.error("Error reading from localStorage:", error)
-    return null
-  }
-}
-
-// Performance Optimization
-function lazyLoadImages() {
-  const images = document.querySelectorAll("img[data-src]")
-  const imageObserver = new IntersectionObserver((entries, observer) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        const img = entry.target
-        img.src = img.dataset.src
-        img.classList.remove("lazy")
-        imageObserver.unobserve(img)
-      }
-    })
-  })
-
-  images.forEach((img) => imageObserver.observe(img))
-}
-
-// Initialize lazy loading when DOM is ready
-document.addEventListener("DOMContentLoaded", lazyLoadImages)
-
-// Error Handling
-window.addEventListener("error", (e) => {
-  console.error("Global error:", e.error)
-  showToast("Something went wrong. Please try again.", "error")
-})
 
 // Service Worker Registration (for PWA capabilities)
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
     navigator.serviceWorker
       .register("/sw.js")
-      .then((registration) => {
-        console.log("ServiceWorker registration successful")
-      })
       .catch((err) => {
-        console.log("ServiceWorker registration failed")
+        console.log("ServiceWorker registration failed: ", err)
       })
   })
-}
-
-// Export functions for testing (if needed)
-if (typeof module !== "undefined" && module.exports) {
-  module.exports = {
-    addToCart,
-    removeFromCart,
-    calculatePrice,
-    validateEmail,
-    validatePhone,
-    searchProducts,
-  }
 }
