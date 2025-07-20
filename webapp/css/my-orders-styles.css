@@ -1,0 +1,123 @@
+/* My Orders Page Styles */
+body {
+    background-color: #f4f7f6;
+}
+
+.orders-container {
+    max-width: 900px;
+    margin: 120px auto 4rem auto; /* Add margin-top to account for fixed navbar */
+    padding: 2rem;
+}
+
+.orders-container h1 {
+    font-size: 2.5rem;
+    color: var(--deep-maroon);
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.order-card {
+    background: var(--white);
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    margin-bottom: 2rem;
+    overflow: hidden;
+}
+
+.order-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    background-color: var(--light-peach);
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.order-card-header h4 {
+    margin: 0 0 0.25rem 0;
+    color: var(--rich-charcoal);
+}
+
+.order-card-header p {
+    margin: 0;
+    color: var(--dark-brown);
+    font-size: 0.9rem;
+}
+
+.order-total {
+    text-align: right;
+}
+
+.order-total span {
+    font-size: 0.8rem;
+    color: #666;
+    display: block;
+}
+
+.order-total strong {
+    font-size: 1.5rem;
+    color: var(--deep-maroon);
+}
+
+.order-card-body {
+    padding: 1.5rem;
+}
+
+.order-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+}
+
+.order-item:not(:last-child) {
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.order-item-details span {
+    display: block;
+    font-size: 0.9rem;
+    color: #777;
+    margin-top: 4px;
+}
+
+.order-item-price strong {
+    font-weight: bold;
+    color: var(--rich-charcoal);
+}
+
+.order-card-footer {
+    background-color: #fafafa;
+    padding: 1.5rem;
+    font-size: 0.9rem;
+    color: #555;
+    border-top: 1px solid #e0e0e0;
+}
+
+/* CORRECTED: This style fixes the overlapping text and button */
+.no-orders {
+    text-align: center;
+    padding: 4rem;
+    background: var(--white);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem; /* Adds space between the text and the button */
+}
+
+.no-orders .cta-button {
+    margin-top: 1.5rem;
+}
+
+/* Status Badges */
+.status-pending, .status-shipped, .status-delivered {
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: #333;
+}
+.status-pending { background-color: #ffc107; } /* Yellow */
+.status-shipped { background-color: #1976d2; color: white; } /* Blue */
+.status-delivered { background-color: #2e7d32; color: white; } /* Green */

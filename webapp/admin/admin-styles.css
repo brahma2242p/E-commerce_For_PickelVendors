@@ -1,0 +1,282 @@
+/* Admin Login & General Body */
+.admin-body {
+    background-color: var(--light-peach);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Dashboard Layout */
+.admin-dashboard-body {
+    display: flex;
+    background-color: #f4f7f6;
+}
+
+/* Sidebar Navigation */
+.admin-sidebar {
+    width: 250px;
+    background: var(--deep-maroon);
+    color: var(--white);
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    position: fixed;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+}
+
+.sidebar-header {
+    padding: 1.5rem;
+    text-align: center;
+    background: rgba(0,0,0,0.2);
+    font-size: 1.2rem;
+}
+
+.sidebar-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-nav li a {
+    display: block;
+    padding: 1rem 1.5rem;
+    color: var(--white);
+    text-decoration: none;
+    transition: background 0.3s ease;
+    border-left: 4px solid transparent;
+}
+
+.sidebar-nav li a:hover {
+    background: rgba(0,0,0,0.3);
+}
+
+.sidebar-nav li.active a {
+    background: var(--primary-orange);
+    border-left: 4px solid var(--white);
+}
+
+.sidebar-nav li a i {
+    margin-right: 10px;
+    width: 20px;
+    text-align: center;
+}
+
+/* Main Content Area */
+.admin-main-content {
+    margin-left: 250px;
+    flex: 1;
+    padding: 2rem;
+}
+
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 2rem;
+}
+
+.admin-header h1 {
+    color: var(--rich-charcoal);
+}
+
+.admin-user-info {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.admin-user-info .logout-btn {
+    background: var(--chili-red);
+    color: var(--white);
+    padding: 8px 15px;
+    border-radius: 25px;
+    text-decoration: none;
+    transition: background 0.3s ease;
+}
+
+.admin-user-info .logout-btn:hover {
+    background: var(--deep-maroon);
+}
+
+/* General Admin Page Content Styles */
+.admin-page-content {
+    background: var(--white);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.content-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+}
+
+.content-header h2 {
+    color: var(--rich-charcoal);
+}
+
+.btn {
+    padding: 8px 15px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-add-new {
+    background: var(--primary-orange);
+    color: var(--white);
+}
+.btn-add-new:hover {
+    background: #e65100; /* Darker orange */
+}
+
+/* Table Styles - THIS IS THE NEW PART */
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+}
+
+.admin-table th, .admin-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.admin-table th {
+    background-color: var(--light-peach);
+    color: var(--deep-maroon);
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.admin-table tbody tr:hover {
+    background-color: #f9f9f9;
+}
+
+.admin-table td {
+    color: var(--dark-brown);
+}
+
+.action-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-edit {
+    background-color: #1976d2; /* Blue */
+    color: white;
+    font-size: 0.8rem;
+}
+.btn-edit:hover {
+    background-color: #1565c0;
+}
+
+.btn-delete {
+    background-color: var(--chili-red);
+    color: white;
+    font-size: 0.8rem;
+}
+.btn-delete:hover {
+    background-color: var(--deep-maroon);
+}
+
+/* Admin Form Styles */
+.admin-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem 2rem;
+}
+
+.admin-form .form-group {
+    margin-bottom: 0;
+}
+
+.admin-form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--rich-charcoal);
+}
+
+.admin-form input,
+.admin-form select,
+.admin-form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 0.9rem;
+}
+
+.admin-form .form-group:has(textarea) {
+    grid-column: 1 / -1; /* Make textarea span both columns */
+}
+/* ... (your existing admin styles) ... */
+
+/* Dashboard Cards */
+.dashboard-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.card {
+    background: var(--white);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    border-left: 5px solid var(--primary-orange);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+.card-icon {
+    font-size: 2.5rem;
+    color: var(--primary-orange);
+    background-color: var(--light-peach);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.card-info h4 {
+    color: var(--dark-brown);
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.card-info p {
+    font-size: 2.2rem;
+    font-weight: bold;
+    color: var(--rich-charcoal);
+    margin: 0;
+}
