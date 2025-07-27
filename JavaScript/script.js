@@ -7,7 +7,7 @@ let products = [];
 document.addEventListener("DOMContentLoaded", async () => {
     // First, verify the login status with the server
     await checkLoginStatus();
-    
+
     // Then, proceed with loading the rest of the page content
     products = await fetchProducts();
     initializeApp();
@@ -175,7 +175,7 @@ function setupEventListeners() {
             window.location.href = '/spiceheritage/catalog.html';
         });
     }
-    
+
     const checkoutBtn = document.getElementById("checkoutBtn");
     if (checkoutBtn) {
         checkoutBtn.addEventListener("click", () => {
@@ -265,13 +265,10 @@ function setupFormSubmissions() {
 
     const resetPasswordForm = document.getElementById("resetPasswordSubmit");
     if (resetPasswordForm) resetPasswordForm.addEventListener("submit", (e) => { e.preventDefault(); handleResetPassword(resetPasswordForm); });
-    
+
     const contactForm = document.getElementById("contactForm");
     if (contactForm) contactForm.addEventListener("submit", (e) => { e.preventDefault(); handleContactForm(contactForm); });
-    
-    const subscribeForm = document.getElementById("subscribeForm");
-    if (subscribeForm) subscribeForm.addEventListener("submit", (e) => { e.preventDefault(); handleSubscribe(subscribeForm); });
-    
+
     const suggestForm = document.getElementById("suggestForm");
     if (suggestForm) suggestForm.addEventListener("submit", (e) => { e.preventDefault(); handleSuggestForm(suggestForm); });
 }
@@ -311,7 +308,7 @@ async function handleRegister(form) {
     const email = form.querySelector('input[name="email"]').value.trim();
     const password = form.querySelector('input[name="password"]').value;
     const confirmPassword = form.querySelector('input[name="confirmPassword"]').value;
-    
+
     const mobileRegex = /^[6-9]\d{9}$/;
     const emailRegex = /^[a-z0-9]+(?:[\._-][a-z0-9]+)*@\S+\.\S+$/;
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
@@ -407,16 +404,6 @@ function handleContactForm(form) {
     showToast("Message sent successfully! We'll get back to you soon.", "success");
 }
 
-function handleSubscribe(form) {
-    const email = form.querySelector('input[type="email"]').value;
-    if (email && email.includes("@")) {
-        showToast("Successfully subscribed to our newsletter!", "success");
-        form.reset();
-    } else {
-        showToast("Please enter a valid email address", "error");
-    }
-}
-
 function handleSuggestForm(form) {
     form.reset();
     showToast("Thank you for your suggestion! We'll review it within 7 days.", "success");
@@ -445,6 +432,60 @@ function loadFeaturedProducts() {
     const featuredProducts = products.filter(p => p.popular).slice(0, 4);
     container.innerHTML = "";
     featuredProducts.forEach(product => container.appendChild(createProductCard(product)));
+    
+    setupFeaturedProductSlider();
+}
+
+/**
+ * Sets up an automatic, looping slider for featured products on mobile.
+ */
+function setupFeaturedProductSlider() {
+    if (window.innerWidth > 768) return;
+
+    const container = document.getElementById('featuredProducts');
+    if (!container) return;
+    
+    const cards = Array.from(container.children);
+    const cardCount = cards.length;
+
+    if (cardCount <= 1) return;
+
+    const wrapper = document.createElement('div');
+    wrapper.className = 'products-grid-wrapper';
+    container.parentNode.insertBefore(wrapper, container);
+    wrapper.appendChild(container);
+
+    cards.forEach(card => {
+        const clone = card.cloneNode(true);
+        clone.setAttribute('aria-hidden', 'true');
+        container.appendChild(clone);
+    });
+
+    const animationName = 'slide';
+    const totalWidthPercent = cardCount * 100;
+    const animationDuration = cardCount * 5;
+
+    const style = document.createElement('style');
+    style.innerHTML = `
+        @keyframes ${animationName} {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-${totalWidthPercent}%); }
+        }
+        .products-grid.sliding {
+            animation: ${animationName} ${animationDuration}s linear infinite;
+        }
+    `;
+    document.head.appendChild(style);
+
+    container.style.width = `${totalWidthPercent * 2}%`;
+    container.classList.add('sliding');
+
+    wrapper.addEventListener('mouseenter', () => {
+        container.style.animationPlayState = 'paused';
+    });
+    wrapper.addEventListener('mouseleave', () => {
+        container.style.animationPlayState = 'running';
+    });
 }
 
 function loadCatalogProducts() {

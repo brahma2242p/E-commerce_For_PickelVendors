@@ -17,7 +17,6 @@ body {
   margin: 0 auto;
   padding: 0 20px;
 }
-
 .sr-only {
   position: absolute;
   width: 1px;
@@ -29,7 +28,6 @@ body {
   white-space: nowrap;
   border-width: 0;
 }
-
 /* Color Variables */
 :root {
   --primary-orange: #f57c00;
@@ -1538,7 +1536,6 @@ body {
     order: -1;
   }
 
-  .products-grid,
   .features-grid,
   .testimonials-grid {
     grid-template-columns: 1fr;
@@ -1581,6 +1578,25 @@ body {
 
   .filters {
     justify-content: center;
+  }
+  
+  .featured-products .products-grid-wrapper {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  }
+
+  .featured-products .products-grid {
+    display: flex;
+    gap: 0;
+  }
+
+  .featured-products .product-card {
+      flex-shrink: 0;
+      width: 80%;
+      margin-right: 1rem;
   }
 }
 
