@@ -7,7 +7,7 @@ let products = [];
 document.addEventListener("DOMContentLoaded", async () => {
     // First, verify the login status with the server
     await checkLoginStatus();
-
+    
     // Then, proceed with loading the rest of the page content
     products = await fetchProducts();
     initializeApp();
@@ -26,7 +26,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 /**
  * Checks the user's login status by querying the server's session.
- * This is the single source of truth for whether a user is logged in.
  */
 async function checkLoginStatus() {
     try {
@@ -46,11 +45,10 @@ async function checkLoginStatus() {
             localStorage.removeItem("isLoggedIn");
             localStorage.removeItem("currentUser");
 
-            // 🔒 Only redirect if on a protected page
             const protectedPages = ["/profile.html", "/checkout.html", "/myorders.html"];
             const path = window.location.pathname;
             const isProtected = protectedPages.some(page => path.endsWith(page));
-            if (isProtected) handleSessionExpired(); // Redirect only on secure pages
+            if (isProtected) handleSessionExpired();
         }
     } catch (error) {
         console.error("Could not check session status:", error);
@@ -62,9 +60,8 @@ async function checkLoginStatus() {
     updateAuthUI();
 }
 
-
 /**
- * Handles the complete logout process when a user's session expires on protected pages.
+ * Handles session expiration on protected pages.
  */
 function handleSessionExpired() {
     isLoggedIn = false;
@@ -84,17 +81,13 @@ function updateAuthUI() {
     if (!profileIcon) return;
 
     if (isLoggedIn && currentUser) {
-        // If logged in, show the user's initial in a styled circle
         profileIcon.innerHTML = `<span class="profile-initial">${currentUser.name.charAt(0).toUpperCase()}</span>`;
         profileIcon.title = `Logged in as ${currentUser.name}`;
     } else {
-        // If logged out, show the default user icon
         profileIcon.innerHTML = '<i class="fas fa-user"></i>';
         profileIcon.title = "Login / Register";
     }
 }
-
-// ... (The rest of your script.js functions remain the same)
 
 async function fetchProducts() {
     try {
@@ -175,7 +168,7 @@ function setupEventListeners() {
             window.location.href = '/spiceheritage/catalog.html';
         });
     }
-
+    
     const checkoutBtn = document.getElementById("checkoutBtn");
     if (checkoutBtn) {
         checkoutBtn.addEventListener("click", () => {
@@ -265,7 +258,7 @@ function setupFormSubmissions() {
 
     const resetPasswordForm = document.getElementById("resetPasswordSubmit");
     if (resetPasswordForm) resetPasswordForm.addEventListener("submit", (e) => { e.preventDefault(); handleResetPassword(resetPasswordForm); });
-
+    
     const contactForm = document.getElementById("contactForm");
     if (contactForm) contactForm.addEventListener("submit", (e) => { e.preventDefault(); handleContactForm(contactForm); });
 
@@ -308,7 +301,7 @@ async function handleRegister(form) {
     const email = form.querySelector('input[name="email"]').value.trim();
     const password = form.querySelector('input[name="password"]').value;
     const confirmPassword = form.querySelector('input[name="confirmPassword"]').value;
-
+    
     const mobileRegex = /^[6-9]\d{9}$/;
     const emailRegex = /^[a-z0-9]+(?:[\._-][a-z0-9]+)*@\S+\.\S+$/;
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
